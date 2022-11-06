@@ -1,4 +1,4 @@
-package com.kuchibecka.weatherapp.dataClasses
+package com.kuchibecka.weatherapp.dataClasses.forecast
 
 data class ForecastData(
     val current: Current,

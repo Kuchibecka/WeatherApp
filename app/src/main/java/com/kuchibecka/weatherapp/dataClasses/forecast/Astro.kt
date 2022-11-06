@@ -1,4 +1,4 @@
-package com.kuchibecka.weatherapp.dataClasses
+package com.kuchibecka.weatherapp.dataClasses.forecast
 
 data class Astro(
     val moon_illumination: String,

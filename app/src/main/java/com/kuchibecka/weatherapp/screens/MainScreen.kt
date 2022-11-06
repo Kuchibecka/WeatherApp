@@ -26,7 +26,7 @@ fun MainScreen(
     backgroundImg: Int, todayWeatherLogo: Int, city: String
 ) {
     val weekForecast = viewModel.weekForecast.observeAsState().value
-    Log.d("Forecast is ", "${weekForecast?.forecast} ${weekForecast?.current} ${weekForecast?.location}")
+    Log.d("MainScreen", "City in main screen is $city")
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +64,7 @@ fun MainScreen(
                             verticalArrangement = Arrangement.SpaceEvenly,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            weekForecast?.location?.name?.let { CityNameAndSettingsFragment(navController = navController, city = it) }
+                            weekForecast?.location?.name?.let { CityNameAndSettingsFragment(navController = navController, city = city) }
                             if (weekForecast != null) {
                                 TodayWeatherFragment(weekForecast)
                             }

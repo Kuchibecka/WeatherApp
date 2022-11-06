@@ -1,6 +1,5 @@
 package com.kuchibecka.weatherapp.network
 
-import com.kuchibecka.weatherapp.ApiService
 import javax.inject.Inject
 
 class ApiRepository @Inject constructor(private val apiService: ApiService) {
@@ -12,4 +11,9 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         aqi: String = "no",
         alerts: String = "no"
     ) = apiService.getForecast(key, city, days, aqi, alerts)
+
+    suspend fun getSearch(
+        key: String,
+        searchRequest: String
+    ) = apiService.getSearch(key, searchRequest)
 }

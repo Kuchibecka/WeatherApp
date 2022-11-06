@@ -6,9 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kuchibecka.weatherapp.R
-import com.kuchibecka.weatherapp.dataClasses.Forecast
-import com.kuchibecka.weatherapp.dataClasses.Forecastday
+import com.kuchibecka.weatherapp.dataClasses.forecast.Forecast
 
 @Composable
 fun WeekWeatherFragment(weekForecast: Forecast) {

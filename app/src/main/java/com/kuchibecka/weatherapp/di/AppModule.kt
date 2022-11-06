@@ -1,6 +1,6 @@
 package com.kuchibecka.weatherapp.di
 
-import com.kuchibecka.weatherapp.ApiService
+import com.kuchibecka.weatherapp.network.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ object AppModule {
     const val API_KEY = "93e8bb3d75904109905130630220311"
 
     @Provides
-    fun baseUrl() = "https://api.weatherapi.com/v1/forecast.json/"
+    fun baseUrl() = "https://api.weatherapi.com/v1/"
 
     @Provides
     @Singleton

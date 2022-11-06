@@ -2,7 +2,6 @@ package com.kuchibecka.weatherapp.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -10,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.kuchibecka.weatherapp.MainViewModel
 import com.kuchibecka.weatherapp.R
-import com.kuchibecka.weatherapp.Screen
+import com.kuchibecka.weatherapp.screens.Screen
 import com.kuchibecka.weatherapp.screens.MainScreen
 import com.kuchibecka.weatherapp.screens.SettingsScreen
 import com.kuchibecka.weatherapp.screens.SplashScreen
@@ -20,13 +19,13 @@ fun SetupNavHost(
     navController: NavHostController, viewModel: MainViewModel,
     initialCity: String, backgroundImg: Int
 ) {
-    Log.d("MainScreen", "SetupNavHost")
+    Log.d("MainScreen", "Initial city is $initialCity")
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route + "/{city}" //TODO: заменить на SplashScreen
+        startDestination = Screen.Splash.route
     ) {
         composable(
-            route = Screen.Splash.route + "/{city}",
+            route = Screen.Splash.route,
             arguments = listOf(
                 navArgument("city") {
                     type = NavType.StringType
@@ -35,21 +34,26 @@ fun SetupNavHost(
                 }
             )
         ) {
-            Log.d("MainScreen", "Before SplashScreen() arg is: ${it.arguments?.getString("city") ?: "suka"}")
+            Log.d("MainScreen", "Before SplashScreen() arg is: ${it.arguments?.getString("city") ?: "no city arg"}")
             SplashScreen(
                 navController = navController,
                 viewModel = viewModel,
                 city = it.arguments?.getString("city")
-                    ?: initialCity
+                    ?: initialCity,
+                it.arguments?.getString("searchRequest")
             )
         }
         composable(
-            route = Screen.Main.route + "/{city}",
+            route = Screen.Main.route,
             arguments = listOf(
                 navArgument("city") {
                     type = NavType.StringType
                     nullable = true
                     defaultValue = initialCity //TODO: заменить
+                },
+                navArgument("searchRequest") {
+                    type = NavType.StringType
+                    defaultValue = ""
                 }
             )
         ) {
@@ -66,12 +70,13 @@ fun SetupNavHost(
             )
         }
         composable(
-            route = Screen.Settings.route + "/{city}",
+            route = Screen.Settings.route,
             arguments = listOf(
                 navArgument("city") {
                     type = NavType.StringType
                     defaultValue = initialCity
-                })
+                }
+            )
         ) {
             SettingsScreen(
                 navController = navController,
