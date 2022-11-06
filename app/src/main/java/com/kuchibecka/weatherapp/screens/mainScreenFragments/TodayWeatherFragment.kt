@@ -13,18 +13,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.kuchibecka.weatherapp.dataClasses.ForecastData
 
 @Composable
-fun TodayWeatherFragment(todayWeatherLogo: Int) {
+fun TodayWeatherFragment(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.7f)
+            .fillMaxHeight(0.8f)
             .background(Color.Transparent),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
+        /* TODO: fetching weather logo
+        Image( //TODO: mb replace with Icon()
             painter = painterResource(id = todayWeatherLogo),
             contentDescription = "weather logo",
             contentScale = ContentScale.Crop,
@@ -32,8 +34,9 @@ fun TodayWeatherFragment(todayWeatherLogo: Int) {
                 .size(64.dp)
                 .clip(CircleShape)
         )
+        */
         Text(
-            text = "Detailed info about today's weather",
+            text = "${forecast.forecast.forecastday[0].day.avgtemp_c} °C",
             color = Color.White.copy(alpha = 0.8f)
         )
     }

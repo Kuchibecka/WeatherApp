@@ -17,7 +17,7 @@ fun BackgroundFragment(backgroundImg: Int) {
             .fillMaxSize()
             .background(Color.Transparent)
     ) {
-        Image(
+        Image( //TODO: mb replace with Icon()
             painter = painterResource(id = backgroundImg),
             contentDescription = "Main background",
             contentScale = ContentScale.FillHeight,

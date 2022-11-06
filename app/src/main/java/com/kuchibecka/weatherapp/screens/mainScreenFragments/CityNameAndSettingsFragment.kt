@@ -11,9 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.kuchibecka.weatherapp.Screen
 
 @Composable
-fun CityNameAndSettings(navController: NavHostController) {
+fun CityNameAndSettingsFragment(navController: NavHostController, city: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -22,14 +23,14 @@ fun CityNameAndSettings(navController: NavHostController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Current city name",
+            text = city,
             color = Color.White.copy(alpha = 0.8f)
         )
         Button(
-            onClick = { navController.navigate("settingsScreen") }
+            onClick = { navController.navigate(Screen.Settings.route + "/$city") }
         ) {
             Text(
-                text = "GO TO SETTINGS",
+                text = "Settings",
                 color = Color.White.copy(alpha = 0.8f)
             )
         }

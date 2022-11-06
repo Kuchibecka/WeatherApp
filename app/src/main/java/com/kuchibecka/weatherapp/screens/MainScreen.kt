@@ -1,28 +1,32 @@
 package com.kuchibecka.weatherapp.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.kuchibecka.weatherapp.WeekWeatherList
+import com.kuchibecka.weatherapp.MainViewModel
 import com.kuchibecka.weatherapp.screens.mainScreenFragments.BackgroundFragment
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.CityNameAndSettings
+import com.kuchibecka.weatherapp.screens.mainScreenFragments.CityNameAndSettingsFragment
 import com.kuchibecka.weatherapp.screens.mainScreenFragments.TodayWeatherFragment
+import com.kuchibecka.weatherapp.screens.mainScreenFragments.WeekWeatherFragment
 
 //TODO: check all passed params
 @Composable
 fun MainScreen(
-    navController: NavHostController,
-    backgroundImg: Int,
-    todayWeatherLogo: Int
+    navController: NavHostController, viewModel: MainViewModel,
+    backgroundImg: Int, todayWeatherLogo: Int, city: String
 ) {
+    val weekForecast = viewModel.weekForecast.observeAsState().value
+    Log.d("Forecast is ", "${weekForecast?.forecast} ${weekForecast?.current} ${weekForecast?.location}")
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -44,12 +48,11 @@ fun MainScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.2f)
+                        .fillMaxHeight(0.4f)
                         .background(Color.Transparent),
                     shape = RoundedCornerShape(9.dp),
                     elevation = 3.dp,
                     backgroundColor = Color.Transparent
-
                 ) {
                     Box(
                         modifier = Modifier
@@ -61,13 +64,15 @@ fun MainScreen(
                             verticalArrangement = Arrangement.SpaceEvenly,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            CityNameAndSettings(navController = navController)
-                            TodayWeatherFragment(todayWeatherLogo = todayWeatherLogo)
+                            weekForecast?.location?.name?.let { CityNameAndSettingsFragment(navController = navController, city = it) }
+                            if (weekForecast != null) {
+                                TodayWeatherFragment(weekForecast)
+                            }
                         }
                     }
                 }
                 //TODO: insert real data list from WeatherAPI
-                WeekWeatherList(arrayListOf("1", "2", "3", "4", "5", "6", "7"))
+                weekForecast?.forecast?.let { WeekWeatherFragment(it) }
             }
         }
     }
