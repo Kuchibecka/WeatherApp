@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,14 +19,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.kuchibecka.weatherapp.dataClasses.forecast.Forecastday
 import com.kuchibecka.weatherapp.ui.theme.Shapes
 
+@ExperimentalMaterial3Api
 @Composable
-@ExperimentalMaterialApi
 fun WeekWeatherItem(dayForecast: Forecastday) {
     var expandedState by remember {
         mutableStateOf(false)
@@ -57,8 +60,10 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
                         easing = LinearOutSlowInEasing
                     )
                 ),
-            shape = Shapes.medium,
-            backgroundColor = Color.Transparent,
+            shape = MaterialTheme.shapes.large,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+            ),
             onClick = {
                 expandedState = !expandedState
             }
@@ -78,7 +83,11 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = dayForecast.date, color = Color.White)
+                    Text(
+                        text = dayForecast.date,
+                        style = MaterialTheme.typography.bodySmall/*,
+                        color = Color.White*/
+                    )
                     Image( //TODO: mb replace with Icon()
                         painter = rememberAsyncImagePainter("https:${dayForecast.day.condition.icon}"),
                         contentDescription = "weather logo",
@@ -87,18 +96,18 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
                     )
                     Text(
                         text = "${dayForecast.day.avgtemp_c}°C",
-                        color = Color.White.copy(alpha = 0.8f)
+                        style = MaterialTheme.typography.bodySmall
                     )
                     IconButton(
                         modifier = Modifier
-                            .alpha(ContentAlpha.medium)
+                            .alpha(DefaultAlpha)
                             /*.weight(1f)*/
                             .rotate(rotationState),
                         onClick = {
                             expandedState = !expandedState
                         }
                     ) {
-                        Icon(
+                            Icon(
                             imageVector = Icons.Default.ArrowDropDown,
                             contentDescription = "Drop-down arrow"
                         )
@@ -107,7 +116,7 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
                 if (expandedState) {
                     Text(
                         text = "Wind: ${dayForecast.day.maxwind_kph} km/h",
-                        color = Color.White.copy(alpha = 0.8f)
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
             }

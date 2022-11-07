@@ -21,14 +21,18 @@ class MainViewModel @Inject constructor(private val repository: ApiRepository): 
 
     fun getWeekForecast(key: String, city: String, days: String = "7", aqi: String = "no", alerts: String = "no") {
         viewModelScope.launch {
+            Log.d("MainScreen", "Processing request")
             repository.getForecast(key, city, days, aqi, alerts).let { response ->
                 if (response.isSuccessful) {
                     _weekForecast.postValue(response.body() as ForecastData)
                 } else {
                     Log.d("network", "getForecast(): Failed to load forecast: ${response.errorBody()}")
                 }
+                Log.d("MainScreen", "Inside of response ->")
             }
+            Log.d("MainScreen", "End of viewModelScope")
         }
+        Log.d("MainScreen", "Out of viewModelScope")
     }
 
     private val _searchAutocomplete = MutableLiveData<ArrayList<SearchResultItem>>()

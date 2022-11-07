@@ -3,10 +3,7 @@ package com.kuchibecka.weatherapp.screens
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -22,13 +19,12 @@ import com.kuchibecka.weatherapp.screens.mainScreenElements.WeekWeather
 
 //TODO: check all passed params
 @Composable
-@ExperimentalMaterialApi
+@ExperimentalMaterial3Api
 fun MainScreen(
     navController: NavHostController, viewModel: MainViewModel,
     backgroundImg: Int, todayWeatherLogo: Int, city: String
 ) {
     val weekForecast = viewModel.weekForecast.observeAsState().value
-    Log.d("MainScreen", "City in main screen is $city")
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -52,9 +48,10 @@ fun MainScreen(
                         .fillMaxWidth()
                         .fillMaxHeight(0.4f)
                         .background(Color.Transparent),
-                    shape = RoundedCornerShape(9.dp),
-                    elevation = 3.dp,
-                    backgroundColor = Color.Transparent
+                    shape = MaterialTheme.shapes.large,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+                    )
                 ) {
                     Box(
                         modifier = Modifier

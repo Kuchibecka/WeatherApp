@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.kuchibecka.weatherapp.navigation.SetupNavHost
@@ -14,18 +15,16 @@ import dagger.hilt.android.AndroidEntryPoint
 //TODO: add logs (MUCH logs)
 
 @AndroidEntryPoint
+@ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: заменить isDarkModeEnabled на системную настройку, добавить такую настройку в экран SettingsScreen
         //TODO: заменить на полученное из местоположения
         val initialCity = "Moscow"
 
         //TODO: заменить на реальную
         val backgroundImg: Int = R.drawable.logo
-
-        Log.d("MainScreen", "MainActivity")
 
         setContent {
             WeatherAppTheme {

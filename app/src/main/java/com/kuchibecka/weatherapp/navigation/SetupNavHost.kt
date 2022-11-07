@@ -1,6 +1,7 @@
 package com.kuchibecka.weatherapp.navigation
 
 import android.util.Log
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -15,11 +16,11 @@ import com.kuchibecka.weatherapp.screens.SettingsScreen
 import com.kuchibecka.weatherapp.screens.SplashScreen
 
 @Composable
+@ExperimentalMaterial3Api
 fun SetupNavHost(
     navController: NavHostController, viewModel: MainViewModel,
     initialCity: String, backgroundImg: Int
 ) {
-    Log.d("MainScreen", "Initial city is $initialCity")
     NavHost(
         navController = navController,
         startDestination = Screen.Splash.route
@@ -34,7 +35,6 @@ fun SetupNavHost(
                 }
             )
         ) {
-            Log.d("MainScreen", "Before SplashScreen() arg is: ${it.arguments?.getString("city") ?: "no city arg"}")
             SplashScreen(
                 navController = navController,
                 viewModel = viewModel,
@@ -57,7 +57,6 @@ fun SetupNavHost(
                 }
             )
         ) {
-            Log.d("MainScreen", "Argument is ${it.arguments?.getString("city")}")
             MainScreen(
                 navController = navController,
                 viewModel = viewModel,

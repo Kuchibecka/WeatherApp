@@ -6,17 +6,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.kuchibecka.weatherapp.MainViewModel
 import kotlinx.coroutines.delay
@@ -28,7 +24,6 @@ fun SplashScreen(
     city: String,
     searchRequest: String?
 ) {
-    Log.d("MainScreen", "Splash screen params: City: $city searchRequest: $searchRequest")
     var startAnimation by remember {
         mutableStateOf(false)
     }
@@ -38,8 +33,8 @@ fun SplashScreen(
     )
     LaunchedEffect(key1 = true) {
         startAnimation = true
+        Log.d("MainScreen", "Launched effect started")
         if (searchRequest != null) {
-            Log.d("SettingsSearch", "Searching request: $searchRequest ...")
             viewModel.getSearchAutocomplete(
                 "93e8bb3d75904109905130630220311",
                 searchRequest
@@ -50,18 +45,19 @@ fun SplashScreen(
                 city, "7", "no", "no"
             )
         }
-        delay(4000)
-        Log.d("MainScreen", "_______________ searchRequest != null: ${searchRequest != null} _______________")
+        delay(4500)
         if (searchRequest != null) {
-            Log.d("MainScreen", "Navigating to ${Screen.Settings.passCity(city = city)}")
             navController.navigate(
                 Screen.Settings.passCity(city)
             )
         } else {
-            Log.d("MainScreen", "Navigating to ${Screen.Main.passCity(city)}")
             navController.navigate(/*"MainScreen/$city"*/ Screen.Main.passCity(city))
         }
+        Log.d("MainScreen", "Launched effect ended")
+    }
 
+    SideEffect {
+        Log.d("MainScreen", "SIDE EFFECT")
     }
     Splash(alpha = alphaAnimation.value)
 }
@@ -74,6 +70,9 @@ fun Splash(alpha: Float) {
             .background(Color.Transparent),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = "Loading...")
+        Text(
+            text = "Loading...",
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
