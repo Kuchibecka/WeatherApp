@@ -3,6 +3,7 @@ package com.kuchibecka.weatherapp.screens.mainScreenElements
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -23,6 +24,7 @@ fun CityNameAndSettings(navController: NavHostController, city: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight(0.2f)
             .background(Color.Transparent),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically

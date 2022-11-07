@@ -55,7 +55,7 @@ fun SettingsScreen(
                     .background(Color.Transparent)
                     .fillMaxSize()
                     .padding(3.dp),
-                verticalArrangement = Arrangement.SpaceBetween,
+                verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Card(
@@ -102,7 +102,7 @@ fun SettingsScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.9f),
+                        .fillMaxHeight(),
                     shape = MaterialTheme.shapes.large,
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)

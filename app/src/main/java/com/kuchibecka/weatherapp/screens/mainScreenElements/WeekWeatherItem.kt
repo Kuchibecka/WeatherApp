@@ -36,91 +36,95 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
         targetValue = if (expandedState) 180f else 0f
     )
 
-    Box(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.Transparent,
-                        Color.Black.copy(alpha = 0.8f),
-                        Color.Black
-                    ),
-                    startY = 1f
+            .background(Color.Transparent)
+            .animateContentSize(
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = LinearOutSlowInEasing
                 )
-            )
-    ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Transparent)
-                .animateContentSize(
-                    animationSpec = tween(
-                        durationMillis = 300,
-                        easing = LinearOutSlowInEasing
-                    )
-                ),
-            shape = MaterialTheme.shapes.large,
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
             ),
-            onClick = {
-                expandedState = !expandedState
-            }
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+        ),
+        onClick = {
+            expandedState = !expandedState
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp)
+                .background(Color.Transparent),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp)
-                    .background(Color.Transparent),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .background(Color.Transparent)
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier
-                        .background(Color.Transparent)
-                        .fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = dayForecast.date,
-                        style = MaterialTheme.typography.bodySmall/*,
+                Text(
+                    text = dayForecast.date,
+                    style = MaterialTheme.typography.bodySmall/*,
                         color = Color.White*/
-                    )
-                    Image(
-                        painter = rememberAsyncImagePainter("https:${dayForecast.day.condition.icon}"),
-                        contentDescription = "weather logo",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(64.dp)
-                    )
-                    Text(
-                        text = "${dayForecast.day.avgtemp_c}°C",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    IconButton(
-                        modifier = Modifier
-                            .alpha(DefaultAlpha)
-                            /*.weight(1f)*/
-                            .rotate(rotationState),
-                        onClick = {
-                            expandedState = !expandedState
-                        }
-                    ) {
-                            Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "Drop-down arrow"
-                        )
+                )
+                Image(
+                    painter = rememberAsyncImagePainter("https:${dayForecast.day.condition.icon}"),
+                    contentDescription = "weather logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.size(64.dp)
+                )
+                Text(
+                    text = "${dayForecast.day.avgtemp_c}°C",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                IconButton(
+                    modifier = Modifier
+                        .alpha(DefaultAlpha)
+                        /*.weight(1f)*/
+                        .rotate(rotationState),
+                    onClick = {
+                        expandedState = !expandedState
                     }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Drop-down arrow"
+                    )
                 }
-                if (expandedState) {
+            }
+            if (expandedState) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
                         text = "Wind: ${dayForecast.day.maxwind_kph} km/h",
                         style = MaterialTheme.typography.bodySmall
                     )
+                    Text(
+                        text = "Min: ${dayForecast.day.mintemp_c} °C",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Text(
+                        text = "Max: ${dayForecast.day.maxtemp_c} °C",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Text(
+                        text = "Chance of rain: ${dayForecast.day.daily_chance_of_rain}%",
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
             }
-
         }
+
     }
+
 }

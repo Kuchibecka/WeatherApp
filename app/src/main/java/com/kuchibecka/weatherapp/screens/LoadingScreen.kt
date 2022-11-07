@@ -37,6 +37,7 @@ fun LoadingScreen(
         animationSpec = tween(durationMillis = 3000)
     )
     LaunchedEffect(key1 = true) {
+
         startAnimation = true
         Log.d("MainScreen", "Launched effect started")
         if (searchRequest != null) {
@@ -84,7 +85,7 @@ fun Loading(angle: Float) {
             tint = Color.White.copy(0.8f),
             contentDescription = null,
             modifier = Modifier
-                .rotate(angle * 10)
+                .rotate(angle * 40)
         )
     }
 }

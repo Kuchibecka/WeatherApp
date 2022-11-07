@@ -15,11 +15,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.BaselineShift
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.kuchibecka.weatherapp.dataClasses.forecast.ForecastData
+import com.kuchibecka.weatherapp.ui.theme.Typography
 
 @Composable
 fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
@@ -37,7 +39,7 @@ fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.8f)
+            .fillMaxHeight()
             .background(Color.Transparent),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
@@ -60,21 +62,43 @@ fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
             )
             Text(
                 text = "{${forecast.forecast.forecastday[0].day.condition.text}}",
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                overflow = TextOverflow.Ellipsis
             )
         }
-        Text(
-            text = buildAnnotatedString {
-                append("Temperature:\n")
-                append("Avg: ${forecast.forecast.forecastday[0].day.avgtemp_c}°C")
-                withStyle(subscript) {
-                    append("${forecast.forecast.forecastday[0].day.mintemp_c}°C")
-                }
-                withStyle(superscript) {
-                    append("${forecast.forecast.forecastday[0].day.maxtemp_c}°C")
-                }
-            },
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(Color.Transparent),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = buildAnnotatedString {
+                    append("Temperature:\n")
+                    append("Avg: ${forecast.forecast.forecastday[0].day.avgtemp_c}°C")
+                    withStyle(subscript) {
+                        append("${forecast.forecast.forecastday[0].day.mintemp_c}°C")
+                    }
+                    withStyle(superscript) {
+                        append("${forecast.forecast.forecastday[0].day.maxtemp_c}°C")
+                    }
+                },
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Text(
+                text = "Wind: ${forecast.current.wind_kph} km/h",
+                style = Typography.bodySmall
+            )
+            Text(
+                text = "Chance of rain: ${forecast.forecast.forecastday[0].day.daily_chance_of_rain}%",
+                style = Typography.bodySmall
+            )
+            Text(
+                text = "Last updated: ${forecast.current.last_updated}",
+                style = Typography.bodySmall
+            )
+        }
     }
 }
