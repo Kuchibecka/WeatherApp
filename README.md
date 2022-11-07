@@ -1,6 +1,6 @@
 # ⛅ WeatherApp
-Weather app for Avito intership
-My first app for Android made within 7 days.
+Weather app for Avito intership. 
+My first Android app made within 7 days.
 
 ## Features
 * Displaying weather forecast for todady
