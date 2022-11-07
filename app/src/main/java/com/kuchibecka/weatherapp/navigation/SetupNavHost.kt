@@ -1,6 +1,5 @@
 package com.kuchibecka.weatherapp.navigation
 
-import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -13,7 +12,7 @@ import com.kuchibecka.weatherapp.R
 import com.kuchibecka.weatherapp.screens.Screen
 import com.kuchibecka.weatherapp.screens.MainScreen
 import com.kuchibecka.weatherapp.screens.SettingsScreen
-import com.kuchibecka.weatherapp.screens.SplashScreen
+import com.kuchibecka.weatherapp.screens.LoadingScreen
 
 @Composable
 @ExperimentalMaterial3Api
@@ -35,12 +34,13 @@ fun SetupNavHost(
                 }
             )
         ) {
-            SplashScreen(
+            LoadingScreen(
                 navController = navController,
                 viewModel = viewModel,
                 city = it.arguments?.getString("city")
                     ?: initialCity,
-                it.arguments?.getString("searchRequest")
+                it.arguments?.getString("searchRequest"),
+
             )
         }
         composable(

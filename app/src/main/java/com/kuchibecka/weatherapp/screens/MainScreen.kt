@@ -25,53 +25,61 @@ fun MainScreen(
     backgroundImg: Int, todayWeatherLogo: Int, city: String
 ) {
     val weekForecast = viewModel.weekForecast.observeAsState().value
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Background(backgroundImg = backgroundImg)
-        Box(
+    var angle: Float = 0f
+    Log.d("WeekForecast", "WeekForecast: $weekForecast")
+    if (weekForecast == null) {
+        Loading(angle + 1)
+    } else {
+        Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Transparent)
         ) {
-            Column( //TODO: replace with LazyColumn
+            Background(backgroundImg = backgroundImg)
+            Box(
                 modifier = Modifier
-                    .background(Color.Transparent)
                     .fillMaxSize()
-                    .padding(3.dp),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .background(Color.Transparent)
             ) {
-                Card(
+                Column( //TODO: replace with LazyColumn
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.4f)
-                        .background(Color.Transparent),
-                    shape = MaterialTheme.shapes.large,
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
-                    )
+                        .background(Color.Transparent)
+                        .fillMaxSize()
+                        .padding(3.dp),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Box(
+                    Card(
                         modifier = Modifier
-                            .background(Color.Black.copy(alpha = 0.8f))
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.4f)
+                            .background(Color.Transparent),
+                        shape = MaterialTheme.shapes.large,
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+                        )
                     ) {
-                        Column(
+                        Box(
                             modifier = Modifier
-                                .fillMaxSize(),
-                            verticalArrangement = Arrangement.SpaceEvenly,
-                            horizontalAlignment = Alignment.CenterHorizontally
+                                .background(Color.Black.copy(alpha = 0.8f))
                         ) {
-                            weekForecast?.location?.name?.let { CityNameAndSettings(navController = navController, city = city) }
-                            if (weekForecast != null) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                verticalArrangement = Arrangement.SpaceEvenly,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                weekForecast.location.name.let {
+                                    CityNameAndSettings(
+                                        navController = navController,
+                                        city = city
+                                    )
+                                }
                                 TodayWeather(weekForecast)
                             }
                         }
                     }
+                    WeekWeather(weekForecast.forecast)
                 }
-                //TODO: insert real data list from WeatherAPI
-                weekForecast?.forecast?.let { WeekWeather(it) }
             }
         }
     }

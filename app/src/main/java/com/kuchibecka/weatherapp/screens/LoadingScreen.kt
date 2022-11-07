@@ -4,21 +4,26 @@ import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.kuchibecka.weatherapp.MainViewModel
-import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(
+fun LoadingScreen(
     navController: NavController,
     viewModel: MainViewModel,
     city: String,
@@ -28,7 +33,7 @@ fun SplashScreen(
         mutableStateOf(false)
     }
     val alphaAnimation = animateFloatAsState(
-        targetValue = if (startAnimation) 1f else 0f,
+        targetValue = if (startAnimation) 360f else 0f,
         animationSpec = tween(durationMillis = 3000)
     )
     LaunchedEffect(key1 = true) {
@@ -45,34 +50,36 @@ fun SplashScreen(
                 city, "7", "no", "no"
             )
         }
-        delay(4500)
         if (searchRequest != null) {
-            navController.navigate(
-                Screen.Settings.passCity(city)
-            )
+            navController.navigate(Screen.Settings.passCity(city))
         } else {
-            navController.navigate(/*"MainScreen/$city"*/ Screen.Main.passCity(city))
+            navController.navigate(Screen.Main.passCity(city))
         }
-        Log.d("MainScreen", "Launched effect ended")
     }
-
-    SideEffect {
-        Log.d("MainScreen", "SIDE EFFECT")
-    }
-    Splash(alpha = alphaAnimation.value)
+    Loading(alphaAnimation.value)
 }
 
 @Composable
-fun Splash(alpha: Float) {
-    Box(
+fun Loading(angle: Float) {
+    Log.d("Rotation", "angle: $angle")
+    Row(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Transparent),
-        contentAlignment = Alignment.Center,
+            .background(Color.Black),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "Loading...",
-            style = MaterialTheme.typography.bodyLarge
+            text = "Loading... ",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.White.copy(0.8f)
+        )
+        Icon(
+            imageVector = Icons.Default.Clear,
+            tint = Color.White.copy(0.8f),
+            contentDescription = null,
+            modifier = Modifier
+                .rotate(angle * 10)
         )
     }
 }
