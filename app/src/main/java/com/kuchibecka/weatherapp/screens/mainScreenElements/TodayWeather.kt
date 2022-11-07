@@ -25,13 +25,13 @@ import com.kuchibecka.weatherapp.dataClasses.forecast.ForecastData
 fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
     val superscript = SpanStyle(
         baselineShift = BaselineShift.Superscript,
-        fontSize = 16.sp, // font size of superscript
-        color = Color.Red // color
+        fontSize = 16.sp,
+        color = Color.Red
     )
     val subscript = SpanStyle(
         baselineShift = BaselineShift.Subscript,
-        fontSize = 16.sp, // font size of subscript
-        color = Color.Blue // color
+        fontSize = 16.sp,
+        color = Color.Blue
     )
 
     Row(
@@ -50,7 +50,7 @@ fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image( //TODO: mb replace with Icon()
+            Image(
                 painter = rememberAsyncImagePainter("https:${forecast.forecast.forecastday[0].day.condition.icon}"),
                 contentDescription = "weather logo",
                 contentScale = ContentScale.Crop,
@@ -65,12 +65,13 @@ fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
         }
         Text(
             text = buildAnnotatedString {
+                append("Temperature:\n")
                 append("Avg: ${forecast.forecast.forecastday[0].day.avgtemp_c}°C")
                 withStyle(subscript) {
-                    append("min: ${forecast.forecast.forecastday[0].day.mintemp_c}°C")
+                    append("${forecast.forecast.forecastday[0].day.mintemp_c}°C")
                 }
                 withStyle(superscript) {
-                    append("max: ${forecast.forecast.forecastday[0].day.maxtemp_c}°C")
+                    append("${forecast.forecast.forecastday[0].day.maxtemp_c}°C")
                 }
             },
             style = MaterialTheme.typography.bodyLarge

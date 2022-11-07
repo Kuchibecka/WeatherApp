@@ -51,7 +51,12 @@ fun LoadingScreen(
             )
         }
         if (searchRequest != null) {
-            navController.navigate(Screen.Settings.passCity(city))
+            navController.navigate(
+                Screen.Settings.passCityAndSearchRequest(
+                    city = city,
+                    searchRequest = searchRequest
+                )
+            )
         } else {
             navController.navigate(Screen.Main.passCity(city))
         }

@@ -88,7 +88,7 @@ fun WeekWeatherItem(dayForecast: Forecastday) {
                         style = MaterialTheme.typography.bodySmall/*,
                         color = Color.White*/
                     )
-                    Image( //TODO: mb replace with Icon()
+                    Image(
                         painter = rememberAsyncImagePainter("https:${dayForecast.day.condition.icon}"),
                         contentDescription = "weather logo",
                         contentScale = ContentScale.Crop,

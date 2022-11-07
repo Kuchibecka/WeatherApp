@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.kuchibecka.weatherapp.screens.Screen
+import com.kuchibecka.weatherapp.ui.theme.Typography
 
 @Composable
 fun CityNameAndSettings(navController: NavHostController, city: String) {
@@ -28,7 +29,7 @@ fun CityNameAndSettings(navController: NavHostController, city: String) {
     ) {
         Text(
             text = city,
-            style = MaterialTheme.typography.bodyLarge
+            style = Typography.titleLarge /*MaterialTheme.typography.bodyLarge*/
         )
         Button(
             onClick = {

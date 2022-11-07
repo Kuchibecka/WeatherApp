@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
@@ -26,11 +25,11 @@ import com.kuchibecka.weatherapp.screens.mainScreenElements.Background
 //TODO: add BackgroundFragment to remain the same background
 fun SettingsScreen(
     navController: NavHostController, viewModel: MainViewModel,
-    backgroundImg: Int, todayWeatherLogo: Int, cityState: String
+    backgroundImg: Int, cityState: String, searchRequest: String?
 ) {
     /*cityState*/
     var cityTextField by remember {
-        mutableStateOf(cityState)
+        mutableStateOf( searchRequest ?: cityState)
     }
     var currentCity by remember {
         mutableStateOf(cityState)

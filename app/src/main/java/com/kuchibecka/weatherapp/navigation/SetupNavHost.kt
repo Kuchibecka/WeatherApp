@@ -39,8 +39,7 @@ fun SetupNavHost(
                 viewModel = viewModel,
                 city = it.arguments?.getString("city")
                     ?: initialCity,
-                it.arguments?.getString("searchRequest"),
-
+                it.arguments?.getString("searchRequest")
             )
         }
         composable(
@@ -74,6 +73,10 @@ fun SetupNavHost(
                 navArgument("city") {
                     type = NavType.StringType
                     defaultValue = initialCity
+                },
+                navArgument("searchRequest") {
+                    type = NavType.StringType
+                    defaultValue = initialCity
                 }
             )
         ) {
@@ -81,8 +84,8 @@ fun SetupNavHost(
                 navController = navController,
                 viewModel = viewModel,
                 backgroundImg = backgroundImg,
-                todayWeatherLogo = R.drawable.sun_logo,
-                cityState = it.arguments?.getString("city") ?: initialCity
+                cityState = it.arguments?.getString("city") ?: initialCity,
+                searchRequest = it.arguments?.getString("searchRequest"),
             )
         }
     }
