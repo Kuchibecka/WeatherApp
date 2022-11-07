@@ -1,4 +1,4 @@
-package com.kuchibecka.weatherapp.screens.mainScreenFragments
+package com.kuchibecka.weatherapp.screens.mainScreenElements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.Image
@@ -11,14 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.kuchibecka.weatherapp.dataClasses.forecast.ForecastData
 
 @Composable
-fun TodayWeatherFragment(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
+fun TodayWeather(forecast: ForecastData/*, todayWeatherLogo: Int*/) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

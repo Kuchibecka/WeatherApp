@@ -1,4 +1,4 @@
-package com.kuchibecka.weatherapp.screens.mainScreenFragments
+package com.kuchibecka.weatherapp.screens.mainScreenElements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
 import com.kuchibecka.weatherapp.screens.Screen
 
 @Composable
-fun CityNameAndSettingsFragment(navController: NavHostController, city: String) {
+fun CityNameAndSettings(navController: NavHostController, city: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

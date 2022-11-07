@@ -1,4 +1,4 @@
-package com.kuchibecka.weatherapp.screens.mainScreenFragments
+package com.kuchibecka.weatherapp.screens.mainScreenElements
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,13 +11,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 
 @Composable
-fun BackgroundFragment(backgroundImg: Int) {
+fun Background(backgroundImg: Int) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Transparent)
     ) {
-        Image( //TODO: mb replace with Icon()
+        Image(
             painter = painterResource(id = backgroundImg),
             contentDescription = "Main background",
             contentScale = ContentScale.FillHeight,

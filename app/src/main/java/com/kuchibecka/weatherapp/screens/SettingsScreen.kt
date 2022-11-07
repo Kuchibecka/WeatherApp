@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.kuchibecka.weatherapp.MainViewModel
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.BackgroundFragment
+import com.kuchibecka.weatherapp.screens.mainScreenElements.Background
 
 @Composable
 //TODO: add BackgroundFragment to remain the same background
@@ -41,7 +41,7 @@ fun SettingsScreen(
             .fillMaxSize()
     ) {
         //TODO: вернуть
-        BackgroundFragment(backgroundImg = backgroundImg)
+        Background(backgroundImg = backgroundImg)
         Box(
             modifier = Modifier
                 .fillMaxSize()

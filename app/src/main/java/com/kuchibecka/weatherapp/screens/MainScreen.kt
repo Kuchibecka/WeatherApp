@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -14,13 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.kuchibecka.weatherapp.MainViewModel
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.BackgroundFragment
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.CityNameAndSettingsFragment
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.TodayWeatherFragment
-import com.kuchibecka.weatherapp.screens.mainScreenFragments.WeekWeatherFragment
+import com.kuchibecka.weatherapp.screens.mainScreenElements.Background
+import com.kuchibecka.weatherapp.screens.mainScreenElements.CityNameAndSettings
+import com.kuchibecka.weatherapp.screens.mainScreenElements.TodayWeather
+import com.kuchibecka.weatherapp.screens.mainScreenElements.WeekWeather
 
 //TODO: check all passed params
 @Composable
+@ExperimentalMaterialApi
 fun MainScreen(
     navController: NavHostController, viewModel: MainViewModel,
     backgroundImg: Int, todayWeatherLogo: Int, city: String
@@ -31,7 +33,7 @@ fun MainScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        BackgroundFragment(backgroundImg = backgroundImg)
+        Background(backgroundImg = backgroundImg)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -64,15 +66,15 @@ fun MainScreen(
                             verticalArrangement = Arrangement.SpaceEvenly,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            weekForecast?.location?.name?.let { CityNameAndSettingsFragment(navController = navController, city = city) }
+                            weekForecast?.location?.name?.let { CityNameAndSettings(navController = navController, city = city) }
                             if (weekForecast != null) {
-                                TodayWeatherFragment(weekForecast)
+                                TodayWeather(weekForecast)
                             }
                         }
                     }
                 }
                 //TODO: insert real data list from WeatherAPI
-                weekForecast?.forecast?.let { WeekWeatherFragment(it) }
+                weekForecast?.forecast?.let { WeekWeather(it) }
             }
         }
     }
